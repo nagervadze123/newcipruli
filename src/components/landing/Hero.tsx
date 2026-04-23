@@ -24,25 +24,24 @@ export function Hero() {
             <span className="absolute inline-flex size-full animate-ping rounded-full bg-[var(--cyan)] opacity-75" />
             <span className="relative inline-flex size-2 rounded-full bg-[var(--cyan)]" />
           </span>
-          <span className="text-white/80">ახალი ერა — ქართული ციფრული მარკეტი</span>
+          <span className="text-white/80">ქართული ციფრული ბაზარი · ახალი</span>
         </div>
 
         <h1 className="kin-in mt-8 text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight leading-[1.02]">
-          <span className="block text-white">შექმენი. გაყიდე.</span>
-          <span className="block text-gradient">გააციფრულე.</span>
+          <span className="block text-white">აღმოაჩინე.</span>
+          <span className="block text-gradient">ციფრული ნამუშევრები.</span>
         </h1>
 
         <p className="kin-in kin-delay-2 mx-auto mt-8 max-w-2xl text-base md:text-lg text-[var(--fg-muted)] leading-relaxed">
-          Cipruli.store — ერთი ადგილი, სადაც ქართული შემოქმედებითი გონება ხვდება ციფრულ ბაზარს.
-          AI პრომპტები, შაბლონები, ელ. წიგნები, კოდი და სხვა — ყველაფერი ერთად, ქართულად.
+          Cipruli.store — პირველი ქართული სივრცე, სადაც შეგიძლია იპოვო AI პრომპტები, შაბლონები, ელ. წიგნები, კოდი და ციფრული ნამუშევრები — ყველაფერი ქართულად.
         </p>
 
         <div className="kin-in kin-delay-3 mt-10 flex flex-wrap items-center justify-center gap-3">
           <Link href="/catalog" className="btn btn-primary">
             კატალოგის დათვალიერება
           </Link>
-          <Link href="/auth/login" className="btn btn-ghost">
-            გაყიდვის დაწყება
+          <Link href="/catalog?price=free" className="btn btn-ghost">
+            უფასო ნამუშევრები
           </Link>
         </div>
 
@@ -50,7 +49,7 @@ export function Hero() {
         <div className="kin-in kin-delay-4 mt-14 grid grid-cols-3 gap-3 max-w-2xl mx-auto">
           {[
             { k: "100%", v: "ქართულად" },
-            { k: "0₾", v: "პლატფორმის გადასახადი" },
+            { k: "კურირებული", v: "რჩეული ხარისხი" },
             { k: "∞", v: "შემოქმედებითი სივრცე" },
           ].map((s) => (
             <div key={s.v} className="glass rounded-2xl px-4 py-5">

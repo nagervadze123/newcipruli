@@ -13,22 +13,22 @@ export function Footer() {
             Cipruli<span className="text-[var(--fg-muted)]">.store</span>
           </div>
           <p className="mt-4 max-w-md text-sm text-[var(--fg-muted)] leading-relaxed">
-            ქართული ციფრული ბაზარი. აქ ქმნი და ყიდი პრომპტებს, შაბლონებს, წიგნებს, კოდსა და ციფრულ ნამუშევრებს — ერთ სივრცეში, ქართულად.
+            ქართული ციფრული ბაზარი. აქ აღმოაჩენ პრომპტებს, შაბლონებს, წიგნებს, კოდსა და ციფრულ ნამუშევრებს — ერთ სივრცეში, ქართულად.
           </p>
         </div>
         <div>
-          <div className="text-sm font-medium mb-3">პროდუქტი</div>
+          <div className="text-sm font-medium mb-3">აღმოაჩინე</div>
           <ul className="space-y-2 text-sm text-[var(--fg-muted)]">
             <li><Link href="/catalog" className="hover:text-white transition">კატალოგი</Link></li>
             <li><Link href="/catalog?type=prompt" className="hover:text-white transition">პრომპტები</Link></li>
             <li><Link href="/catalog?type=file" className="hover:text-white transition">ფაილები</Link></li>
-            <li><Link href="/sell" className="hover:text-white transition">გაყიდე</Link></li>
+            <li><Link href="/catalog?price=free" className="hover:text-white transition">უფასო</Link></li>
           </ul>
         </div>
         <div>
           <div className="text-sm font-medium mb-3">Cipruli</div>
           <ul className="space-y-2 text-sm text-[var(--fg-muted)]">
-            <li><Link href="/auth/login" className="hover:text-white transition">შესვლა</Link></li>
+            <li><span className="opacity-60">შესახებ — მალე</span></li>
             <li><span className="opacity-60">კონტაქტი — მალე</span></li>
             <li><span className="opacity-60">წესები — მალე</span></li>
           </ul>

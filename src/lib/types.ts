@@ -19,7 +19,7 @@ export interface Profile {
 
 export interface Product {
   id: string;
-  seller_id: string;
+  seller_id: string | null;
   category_id: number | null;
   slug: string;
   title_ka: string;
@@ -30,10 +30,10 @@ export interface Product {
   content_text: string | null;
   file_path: string | null;
   cover_url: string | null;
+  author_name: string | null;
   created_at: string;
 }
 
 export interface ProductWithRelations extends Product {
   category: Pick<Category, "slug" | "name_ka"> | null;
-  seller: Pick<Profile, "username" | "display_name" | "avatar_url"> | null;
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import Image from "next/image";
 import { createClient } from "@/lib/supabase/server";
 import { ProductCoverLoader } from "@/components/three/ProductCoverLoader";
 import type { ProductWithRelations } from "@/lib/types";
@@ -34,9 +33,7 @@ export default async function ProductPage({ params }: { params: Params }) {
 
   const { data } = await supabase
     .from("products")
-    .select(
-      "*, category:categories(slug,name_ka), seller:profiles(username,display_name,avatar_url)",
-    )
+    .select("*, category:categories(slug,name_ka)")
     .eq("slug", slug)
     .maybeSingle();
 
@@ -53,12 +50,10 @@ export default async function ProductPage({ params }: { params: Params }) {
       </Link>
 
       <div className="relative mt-6 grid md:grid-cols-5 gap-8">
-        {/* 3D cover */}
         <div className="md:col-span-2 relative rounded-3xl border border-white/10 bg-black/30 overflow-hidden h-[380px] md:h-[560px]">
-          <ProductCoverLoader seed={Math.floor(Math.random() * 4)} />
+          <ProductCoverLoader seed={product.slug.length % 4} />
         </div>
 
-        {/* Info */}
         <div className="md:col-span-3">
           <div className="flex items-center gap-2">
             {product.category && (
@@ -81,7 +76,6 @@ export default async function ProductPage({ params }: { params: Params }) {
             </p>
           )}
 
-          {/* Price / CTA */}
           <div className="mt-8 rounded-2xl glass p-5 flex flex-wrap items-center justify-between gap-4">
             <div>
               <div className="text-xs uppercase tracking-[0.15em] text-[var(--fg-muted)]">ფასი</div>
@@ -95,7 +89,7 @@ export default async function ProductPage({ params }: { params: Params }) {
                 )}
               </div>
             </div>
-            {product.is_free && product.type === "prompt" && product.content_text ? (
+            {product.is_free && product.type === "prompt" && product.content_text && (
               <details className="w-full">
                 <summary className="btn btn-primary cursor-pointer list-none">
                   პრომპტის ნახვა
@@ -104,42 +98,16 @@ export default async function ProductPage({ params }: { params: Params }) {
                   {product.content_text}
                 </pre>
               </details>
-            ) : (
-              <Link href={`/profile/${product.seller?.username ?? ""}`} className="btn btn-primary">
-                ავტორთან დაკავშირება
-              </Link>
             )}
           </div>
 
-          {/* Seller */}
-          {product.seller && (
-            <Link
-              href={`/profile/${product.seller.username}`}
-              className="mt-6 flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-4 hover:bg-white/[0.06] transition"
-            >
-              {product.seller.avatar_url ? (
-                <Image
-                  src={product.seller.avatar_url}
-                  alt={product.seller.display_name ?? product.seller.username}
-                  width={44}
-                  height={44}
-                  className="rounded-full"
-                  unoptimized
-                />
-              ) : (
-                <div className="size-11 rounded-full bg-gradient-to-br from-[var(--violet)] to-[var(--cyan)]" />
-              )}
-              <div>
-                <div className="text-xs text-[var(--fg-muted)]">ავტორი</div>
-                <div className="font-medium">
-                  {product.seller.display_name ?? product.seller.username}
-                </div>
-                <div className="text-xs text-[var(--fg-muted)]">@{product.seller.username}</div>
-              </div>
-            </Link>
+          {product.author_name && (
+            <div className="mt-6 text-sm text-[var(--fg-muted)]">
+              ავტორი: <span className="text-white">{product.author_name}</span>
+            </div>
           )}
 
-          <div className="mt-6 text-xs text-[var(--fg-dim)]">
+          <div className="mt-4 text-xs text-[var(--fg-dim)]">
             გამოქვეყნდა: {formatDateKa(product.created_at)}
           </div>
         </div>

@@ -13,9 +13,7 @@ export default async function HomePage() {
     supabase.from("categories").select("*").order("id"),
     supabase
       .from("products")
-      .select(
-        "*, category:categories(slug,name_ka), seller:profiles(username,display_name,avatar_url)",
-      )
+      .select("*, category:categories(slug,name_ka)")
       .order("created_at", { ascending: false })
       .limit(6),
   ]);

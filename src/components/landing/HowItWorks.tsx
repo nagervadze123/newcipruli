@@ -1,18 +1,18 @@
-const steps = [
+const items = [
   {
-    step: "01",
-    title_ka: "შექმენი",
-    body_ka: "შემოდი GitHub-ით, ატვირთე პრომპტი ან ფაილი, მიეცი სახელი და ფასი.",
+    icon: "✦",
+    title_ka: "ქართულად, ყველაფერი",
+    body_ka: "ინტერფეისი, აღწერები და კურირება — სრულად ქართული. ნათელი და ბუნებრივი.",
   },
   {
-    step: "02",
-    title_ka: "გამოაქვეყნე",
-    body_ka: "შენი ნამუშევარი გამოჩნდება კატალოგში. ყველას შეუძლია მისი ნახვა.",
+    icon: "◈",
+    title_ka: "კურირებული ხარისხი",
+    body_ka: "თითოეულ ნამუშევარზე ზედამხედველობა — არანაირი ნაგავი, მხოლოდ რელევანტური კონტენტი.",
   },
   {
-    step: "03",
-    title_ka: "დაუკავშირდი",
-    body_ka: "მყიდველები უფასო ნამუშევრებს გადმოწერენ, ფასიანზე — გამოგიგზავნიან მოთხოვნას.",
+    icon: "✧",
+    title_ka: "ადგილობრივი გამოცდილება",
+    body_ka: "საქართველოდან, საქართველოსთვის — ქართული მომხმარებლის გათვალისწინებით დამზადებული.",
   },
 ];
 
@@ -22,25 +22,25 @@ export function HowItWorks() {
       <div className="grid md:grid-cols-12 gap-10">
         <div className="md:col-span-5">
           <div className="text-xs uppercase tracking-[0.18em] text-[var(--fg-muted)] font-display">
-            პროცესი
+            რატომ Cipruli
           </div>
           <h2 className="font-display text-3xl md:text-4xl font-bold mt-2">
-            სამი ნაბიჯი — <br />
-            <span className="text-gradient">უსასრულო შესაძლებლობა.</span>
+            არა ჩვეულებრივი მარკეტი — <br />
+            <span className="text-gradient">შერჩეული სივრცე.</span>
           </h2>
           <p className="mt-4 text-[var(--fg-muted)] text-sm md:text-base leading-relaxed max-w-md">
-            Cipruli.store-ში არ არის რთული პროცესები. მოიტანე შენი იდეა, ჩვენ მივცემთ სივრცეს.
+            Cipruli.store-ში ყველა ნამუშევარი შერჩეულია ხარისხის, შესაბამისობისა და ქართული მომხმარებლისთვის ღირებულების მიხედვით.
           </p>
         </div>
 
         <div className="md:col-span-7 grid gap-4">
-          {steps.map((s) => (
+          {items.map((s) => (
             <div
-              key={s.step}
+              key={s.title_ka}
               className="relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] p-6 md:p-7 flex items-start gap-5"
             >
               <div className="shrink-0 font-display text-5xl md:text-6xl font-bold text-gradient leading-none">
-                {s.step}
+                {s.icon}
               </div>
               <div>
                 <div className="font-display text-xl md:text-2xl font-semibold">{s.title_ka}</div>

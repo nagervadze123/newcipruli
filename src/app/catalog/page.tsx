@@ -32,9 +32,7 @@ export default async function CatalogPage({
 
   let query = supabase
     .from("products")
-    .select(
-      "*, category:categories(slug,name_ka), seller:profiles(username,display_name,avatar_url)",
-    )
+    .select("*, category:categories(slug,name_ka)")
     .order("created_at", { ascending: false })
     .limit(48);
 
@@ -59,7 +57,6 @@ export default async function CatalogPage({
 
   return (
     <div className="relative mx-auto max-w-7xl px-5 md:px-8 pt-12 md:pt-16 pb-24">
-      {/* ambient background */}
       <div aria-hidden className="pointer-events-none absolute -top-20 left-1/2 -translate-x-1/2 h-[24rem] w-[50rem] rounded-full bg-[var(--violet)]/15 blur-3xl" />
 
       <div className="relative">
@@ -80,9 +77,9 @@ export default async function CatalogPage({
         <div className="mt-10">
           {products.length === 0 ? (
             <div className="rounded-3xl border border-white/10 bg-white/[0.03] p-10 md:p-16 text-center">
-              <div className="font-display text-2xl mb-2">ჯერ კატალოგი ცარიელია</div>
+              <div className="font-display text-2xl mb-2">მალე ვეძებთ ახალ ნამუშევრებს</div>
               <p className="text-[var(--fg-muted)]">
-                გახდი პირველი გამყიდველი — მოიცადე ოდნავ და გახდი პიონერი.
+                კატალოგი მალე შეივსება — დაგვიბრუნდი.
               </p>
             </div>
           ) : (

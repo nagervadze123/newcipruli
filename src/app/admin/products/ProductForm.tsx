@@ -2,12 +2,20 @@
 
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
-import type { Category } from "@/lib/types";
-import { createProduct } from "@/app/actions/products";
+import type { Category, Product } from "@/lib/types";
+import { createProduct, updateProduct } from "@/app/admin/actions";
 
-export function NewProductForm({ categories }: { categories: Category[] }) {
-  const [type, setType] = useState<"prompt" | "file">("prompt");
-  const [isFree, setIsFree] = useState(true);
+export function ProductForm({
+  categories,
+  mode,
+  product,
+}: {
+  categories: Category[];
+  mode: "create" | "edit";
+  product?: Product;
+}) {
+  const [type, setType] = useState<"prompt" | "file">(product?.type ?? "prompt");
+  const [isFree, setIsFree] = useState<boolean>(product?.is_free ?? true);
   const [pending, startTransition] = useTransition();
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
@@ -17,9 +25,12 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
       action={(fd) => {
         setError(null);
         startTransition(async () => {
-          const res = await createProduct(fd);
+          const res =
+            mode === "create"
+              ? await createProduct(fd)
+              : await updateProduct(product!.id, fd);
           if (res?.error) setError(res.error);
-          else if (res?.slug) router.push(`/products/${res.slug}`);
+          else router.push("/admin");
         });
       }}
       className="space-y-6"
@@ -28,6 +39,7 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
         <input
           name="title_ka"
           required
+          defaultValue={product?.title_ka ?? ""}
           maxLength={140}
           className="input"
           placeholder="მაგ.: AI პრომპტები მწერლებისთვის"
@@ -37,6 +49,7 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
       <Field label="მოკლე აღწერა">
         <textarea
           name="description_ka"
+          defaultValue={product?.description_ka ?? ""}
           rows={3}
           maxLength={500}
           className="input"
@@ -46,7 +59,11 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
 
       <div className="grid md:grid-cols-2 gap-4">
         <Field label="კატეგორია">
-          <select name="category_id" className="input">
+          <select
+            name="category_id"
+            defaultValue={product?.category_id ?? ""}
+            className="input"
+          >
             <option value="">— არცერთი —</option>
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
@@ -65,6 +82,16 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
         </Field>
       </div>
 
+      <Field label="ავტორი (ნებაყოფლობით)">
+        <input
+          name="author_name"
+          defaultValue={product?.author_name ?? ""}
+          maxLength={80}
+          className="input"
+          placeholder="მაგ.: Cipruli Studio"
+        />
+      </Field>
+
       <Field label="ფასი">
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-2 text-sm">
@@ -82,6 +109,7 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
             type="number"
             step="0.01"
             min="0"
+            defaultValue={product?.price_gel ?? ""}
             disabled={isFree}
             placeholder="₾"
             className="input max-w-[160px] disabled:opacity-40"
@@ -93,7 +121,8 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
         <Field label="პრომპტის ტექსტი">
           <textarea
             name="content_text"
-            rows={8}
+            defaultValue={product?.content_text ?? ""}
+            rows={10}
             required
             className="input font-mono text-sm"
             placeholder="დაწერე ან ჩააწებე პრომპტი აქ…"
@@ -103,9 +132,10 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
         <Field label="ფაილის შესახებ">
           <textarea
             name="content_text"
-            rows={4}
+            defaultValue={product?.content_text ?? ""}
+            rows={5}
             className="input"
-            placeholder="დროებითი MVP: ფაილის ატვირთვის ნაცვლად დაწერე აღწერა ან ბმული (Google Drive, GitHub, Notion)."
+            placeholder="აღწერა ან გარე ბმული (Google Drive, GitHub, Notion)."
           />
           <div className="mt-2 text-xs text-[var(--fg-dim)]">
             ფაილის ატვირთვა დაემატება შემდეგ განახლებაში (Supabase Storage).
@@ -121,7 +151,7 @@ export function NewProductForm({ categories }: { categories: Category[] }) {
 
       <div className="flex justify-end">
         <button type="submit" disabled={pending} className="btn btn-primary disabled:opacity-60">
-          {pending ? "იქმნება…" : "გამოქვეყნება"}
+          {pending ? "ინახება…" : mode === "create" ? "გამოქვეყნება" : "შენახვა"}
         </button>
       </div>
 

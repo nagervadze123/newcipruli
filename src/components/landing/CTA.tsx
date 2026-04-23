@@ -9,20 +9,20 @@ export function CTA() {
 
         <div className="relative">
           <div className="text-xs uppercase tracking-[0.18em] text-[var(--cyan)] font-display">
-            შენი ეტაპია
+            დაიწყე
           </div>
           <h2 className="font-display text-3xl md:text-5xl font-bold mt-4">
-            შექმენი შენი <span className="text-gradient">პირველი პროდუქტი</span> დღესვე.
+            იპოვე <span className="text-gradient">შენი ნამუშევარი</span> დღესვე.
           </h2>
           <p className="mt-5 text-[var(--fg-muted)] max-w-2xl mx-auto">
-            ერთი ანგარიში. ერთი მარკეტპლეისი. უსასრულო საშუალება — ქართულად.
+            პრომპტი, შაბლონი, წიგნი, კოდი — ერთ ადგილზე, ქართულად.
           </p>
           <div className="mt-8 flex items-center justify-center gap-3">
-            <Link href="/auth/login" className="btn btn-gold">
-              GitHub-ით დაწყება
+            <Link href="/catalog" className="btn btn-gold">
+              კატალოგში გადასვლა
             </Link>
-            <Link href="/catalog" className="btn btn-ghost">
-              ჯერ დაათვალიერე
+            <Link href="/catalog?price=free" className="btn btn-ghost">
+              უფასო ნამუშევრები
             </Link>
           </div>
         </div>
